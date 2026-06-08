@@ -28,3 +28,41 @@ language contexts requires frameworks that understand the difference between
 relevancy and responsibility. That gap is the niche.
 
 Potential artifacts: custom metric, README, FLAIR outreach, conference proposal.
+
+## Observation — Day 2 (June 8, 2026)
+
+### Hallucination metric limitation — contradiction vs addition
+
+Tested HallucinationMetric by injecting a fabricated detail into actual_output:
+"sacred rivers used for ritual bathing" — not present in the context.
+
+The metric still passed. The judge reasoned that the fabricated detail was a 
+"factual addition rather than a contradiction" and therefore not a hallucination.
+
+This reveals a significant limitation for indigenous language evaluation:
+HallucinationMetric catches contradictions better than unsupported additions.
+For Taíno content specifically, plausible-sounding but unverified cultural 
+details are exactly the dangerous behavior we need to catch.
+
+A custom metric would need to ask:
+- "Does the output contain claims NOT supported by the context?" (faithfulness)
+Rather than:
+- "Does the output contradict the context?" (hallucination)
+
+### Self-evaluation bias — something to watch
+
+Note: this was raised as a general concern, not something observed directly 
+in these results since the hallucination test used a contrived hardcoded output 
+rather than a live model call.
+
+Worth keeping in mind for future eval suites — when the judge model and the 
+tested model share the same training lineage, results may be skewed by shared 
+tendencies and blind spots. Best practice is to use a different model family 
+as judge than the one being tested.
+
+### Where this sits in the field
+
+Generic evaluation metrics are well understood. Evaluation for low-resource and 
+indigenous languages is genuinely understudied — live research questions, not 
+settled practice. The QA engineering angle (testable, runnable infrastructure) 
+is a different and needed contribution from the ML research angle.
