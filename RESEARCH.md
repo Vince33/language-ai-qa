@@ -8,33 +8,50 @@ a working document, not a finished artifact.
 
 ## The Contradiction vs Addition Problem in Hallucination Detection
 
-**Status: Partially resolved — deeper problem identified**
+**Status: Resolved experimentally — configuration matters**
 
 Standard hallucination metrics (including DeepEval's HallucinationMetric) 
 detect contradictions between model output and provided context. They do 
-not reliably flag unsupported additions — claims that are plausible but 
-not grounded in the context.
+not flag unsupported additions — claims that are plausible but not grounded 
+in the context. This is by design. The HallucinationMetric formula is:
 
-DeepEval's FaithfulnessMetric already addresses this more directly — it 
-evaluates whether every claim in the output is grounded in the provided 
-context, which is closer to what this domain requires than HallucinationMetric.
+  Number of Contradicted Contexts / Total Number of Contexts
 
-However, the deeper problem for indigenous language evaluation is not 
-the metric itself — it is the context requirement. FaithfulnessMetric 
-requires reliable, sourced context to evaluate against. For Taíno 
-specifically, trustworthy academically sourced context is scarce and 
-contested. The problem shifts from:
+It measures whether output contradicts context documents, not whether every 
+claim is supported by them. No configuration parameter changes this behavior.
 
-> "We need a metric that catches unsupported additions"
+DeepEval's FaithfulnessMetric is the more appropriate tool for this domain, 
+but requires correct configuration. Default settings produce the same failure 
+mode — the judge treats unsupported additions as non-contradictions and passes 
+them. Two configuration changes are required:
 
-To:
+- `penalize_ambiguous_claims=True` — treats claims not clearly supported 
+  by retrieval context as unfaithful rather than neutral
+- `threshold=0.7` — raises the bar so partially faithful output fails
 
-> "We need a rigorous process for establishing what counts as ground 
-> truth context for low-resource language evaluation"
+Experimentally confirmed: with default settings, a fabricated detail 
+("sacred rivers used for ritual bathing" — absent from context) scored 
+1.0 faithfulness and passed. With the above configuration, the same 
+detail scored 0.67 and failed, with the judge explicitly identifying it 
+as "not supported by the retrieval context."
 
-That is a harder and more interesting problem — and one no current 
-framework addresses for Taíno or Arawakan languages.
+The deeper problem for this domain remains the context requirement. 
+FaithfulnessMetric requires reliable sourced context to evaluate against. 
+For Taíno specifically, trustworthy academically sourced context is scarce 
+and contested. The problem is not finding the right metric — it is 
+establishing what counts as ground truth context for a language with 
+limited documented sources. 
 
+This requires collaboration between disciplines. Linguists and community 
+knowledge holders determine what sources are authoritative. QA engineering 
+determines how to structure those sources for evaluation and how to measure 
+whether AI outputs stay faithful to them. Neither can do this alone — the 
+evaluation infrastructure is only as good as the linguistic foundation it 
+sits on, and the linguistic knowledge is only testable at scale with 
+evaluation tooling.
+
+This is where organizations like FLAIR and UCTP become relevant — not just 
+as audiences for this work but as necessary partners in it.
 ---
 
 ## Relevancy vs Responsibility

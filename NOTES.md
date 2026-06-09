@@ -95,13 +95,17 @@ indigenous American languages. Key findings that connect to this project:
 
 FaithfulnessMetric requires reliable sourced context to evaluate against. 
 For Taíno specifically, trustworthy academically sourced context is scarce 
-and contested. This reframes the core technical challenge:
+and contested. This reframes the core technical challenge.
 
-The problem is not building a better metric — it is establishing what counts 
-as ground truth context for a language with limited documented sources. That 
-is a QA engineering problem, not a linguistics problem. It does not require 
-Taíno language expertise — it requires building the evaluation infrastructure 
-that operates on top of whatever authoritative sources exist.
+This is a collaboration problem, not a purely technical one. Linguists and 
+community knowledge holders determine what sources are authoritative. QA 
+engineering determines how to structure those sources for evaluation and 
+measure whether AI outputs stay faithful to them. Neither discipline can 
+do this alone — the evaluation infrastructure is only as good as the 
+linguistic foundation it sits on.
+
+This is where organizations like FLAIR and UCTP become relevant — not just 
+as audiences for this work but as necessary partners in it.
 
 ### Indigenous Data Sovereignty and the digitalization risk
 
