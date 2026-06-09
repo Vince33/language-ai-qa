@@ -29,6 +29,8 @@ relevancy and responsibility. That gap is the niche.
 
 Potential artifacts: custom metric, README, FLAIR outreach, conference proposal.
 
+---
+
 ## Observation — Day 2 (June 8, 2026)
 
 ### Hallucination metric limitation — contradiction vs addition
@@ -39,15 +41,15 @@ Tested HallucinationMetric by injecting a fabricated detail into actual_output:
 The metric still passed. The judge reasoned that the fabricated detail was a 
 "factual addition rather than a contradiction" and therefore not a hallucination.
 
-This reveals a significant limitation for indigenous language evaluation:
-HallucinationMetric catches contradictions better than unsupported additions.
-For Taíno content specifically, plausible-sounding but unverified cultural 
-details are exactly the dangerous behavior we need to catch.
+This reveals a limitation of HallucinationMetric specifically — it catches 
+contradictions better than unsupported additions. DeepEval's FaithfulnessMetric 
+already addresses this more directly by asking whether every claim in the output 
+is grounded in the provided context. Worth exploring FaithfulnessMetric as the 
+more appropriate tool for this domain.
 
-A custom metric would need to ask:
-- "Does the output contain claims NOT supported by the context?" (faithfulness)
-Rather than:
-- "Does the output contradict the context?" (hallucination)
+Note: initial framing here suggested building a custom metric for this problem. 
+That was premature — FaithfulnessMetric already exists and should be tested 
+before concluding a custom solution is needed.
 
 ### Self-evaluation bias — something to watch
 
@@ -66,3 +68,56 @@ Generic evaluation metrics are well understood. Evaluation for low-resource and
 indigenous languages is genuinely understudied — live research questions, not 
 settled practice. The QA engineering angle (testable, runnable infrastructure) 
 is a different and needed contribution from the ML research angle.
+
+---
+
+## Observation — Day 3 (June 9, 2026)
+
+### IDB Report findings
+
+Read the IDB Lab / Microsoft AI for Good Lab report on AI performance in 
+indigenous American languages. Key findings that connect to this project:
+
+- AI scores only 2.4/10 on expression correctness and 2.3/10 on comprehension 
+  in indigenous languages even when responses appear superficially correct 54% 
+  of the time. This is empirical institutional confirmation of the relevancy vs 
+  responsibility gap identified on day one.
+
+- Taíno is absent from the study. The seven languages covered are Quechua, 
+  Guarani, Aymara, Nahuatl, Quiche, Mapuche, and Tupi-Guarani. That absence 
+  is the specific gap this project can address.
+
+- 91% correlation between Wikipedia presence and AI performance. Taíno has 
+  essentially zero Wikipedia presence — this predicts near-zero reliable AI 
+  performance for Taíno content and explains the behavior observed on day one.
+
+### The ground truth context problem
+
+FaithfulnessMetric requires reliable sourced context to evaluate against. 
+For Taíno specifically, trustworthy academically sourced context is scarce 
+and contested. This reframes the core technical challenge:
+
+The problem is not building a better metric — it is establishing what counts 
+as ground truth context for a language with limited documented sources. That 
+is a QA engineering problem, not a linguistics problem. It does not require 
+Taíno language expertise — it requires building the evaluation infrastructure 
+that operates on top of whatever authoritative sources exist.
+
+### Indigenous Data Sovereignty and the digitalization risk
+
+Digitalization of indigenous languages improves AI performance but removes 
+a form of natural protection — communities operating in a language opaque 
+to AI systems are harder to surveil or target algorithmically. This tension 
+between preservation and protection is underexplored in the evaluation 
+literature and has no clean resolution.
+
+Who controls the AI that speaks a language matters as much as whether the 
+AI speaks it accurately. Evaluation frameworks that only measure accuracy 
+miss this dimension entirely.
+
+### Positioning note
+
+This project is being built by a QA engineer of Puerto Rican descent with 
+personal interest in Taíno cultural recovery — not a Taíno language expert. 
+The contribution is evaluation infrastructure, not linguistic authority. 
+That distinction is intentional and important.
