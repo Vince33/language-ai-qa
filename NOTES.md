@@ -38,18 +38,18 @@ Potential artifacts: custom metric, README, FLAIR outreach, conference proposal.
 Tested HallucinationMetric by injecting a fabricated detail into actual_output:
 "sacred rivers used for ritual bathing" — not present in the context.
 
-The metric still passed. The judge reasoned that the fabricated detail was a 
+The metric passed. The judge reasoned that the fabricated detail was a 
 "factual addition rather than a contradiction" and therefore not a hallucination.
 
-This reveals a limitation of HallucinationMetric specifically — it catches 
-contradictions better than unsupported additions. DeepEval's FaithfulnessMetric 
-already addresses this more directly by asking whether every claim in the output 
-is grounded in the provided context. Worth exploring FaithfulnessMetric as the 
-more appropriate tool for this domain.
+This is by design. HallucinationMetric formula is:
+  Number of Contradicted Contexts / Total Number of Contexts
+It measures whether the output contradicts context documents — not whether 
+every claim in the output is supported by them. No parameter exists to 
+change this behavior.
 
-Note: initial framing here suggested building a custom metric for this problem. 
-That was premature — FaithfulnessMetric already exists and should be tested 
-before concluding a custom solution is needed.
+Note: initial framing here suggested building a custom metric for this problem,
+and later suggested FaithfulnessMetric would solve it. Both were premature — 
+see Day 3 for the complete picture after further investigation.
 
 ### Self-evaluation bias — something to watch
 
@@ -121,3 +121,35 @@ This project is being built by a QA engineer of Puerto Rican descent with
 personal interest in Taíno cultural recovery — not a Taíno language expert. 
 The contribution is evaluation infrastructure, not linguistic authority. 
 That distinction is intentional and important.
+
+### FaithfulnessMetric investigation — complete picture
+
+Investigated FaithfulnessMetric as a potential solution to the unsupported 
+additions problem identified on Day 2. Full findings:
+
+**Default configuration fails:** FaithfulnessMetric with default settings 
+scored 1.0 on the sacred rivers test case — same failure mode as 
+HallucinationMetric. Despite documentation suggesting it flags unsupported 
+additions, the default judge behavior still reasons about contradictions.
+
+**Root cause:** The formula counts claims that "do not contradict" the 
+retrieval context as truthful. With default settings the judge treats 
+unsupported additions as non-contradictions and passes them.
+
+**The fix:** Two configuration changes produce correct behavior:
+- `penalize_ambiguous_claims=True` — forces the judge to treat claims 
+  not clearly supported by context as unfaithful rather than neutral
+- `threshold=0.7` — raises the bar so a partially faithful output fails
+
+With both settings applied, the sacred rivers fabrication scored 0.67 
+and correctly failed, with the judge explicitly identifying it as 
+"not supported by the retrieval context."
+
+**HallucinationMetric has no equivalent parameter** — no `penalize_ambiguous_claims` 
+or similar option exists. Its formula is fundamentally contradiction-based 
+with no configuration path to catch unsupported additions.
+
+**Conclusion:** FaithfulnessMetric with `penalize_ambiguous_claims=True` 
+and `threshold=0.7` is the correct tool for this domain. Default 
+configuration is insufficient. This is a concrete, actionable finding — 
+not just a theoretical gap.
