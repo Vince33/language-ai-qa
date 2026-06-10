@@ -1,20 +1,31 @@
 # language-ai-qa
 
-A portfolio project exploring AI Quality Engineering for indigenous and 
-endangered language technology.
+A portfolio project exploring AI Quality Engineering for low-resource 
+and reconstructed language technology.
 
 ## What this is
 
-An evaluation framework for AI systems that attempt to handle indigenous 
-and endangered language content. The focus is on building tooling that 
-helps assess whether AI models are behaving responsibly — not just 
-relevantly — when working with low-resource language data.
+An evaluation framework for AI systems that attempt to handle content 
+in low-resource and reconstructed languages — languages with limited 
+digital data, no living speaker community, or both. The focus is on 
+building tooling that helps assess whether AI models are behaving 
+responsibly — not just relevantly — when working in these contexts.
 
-Generic AI evaluation metrics measure relevancy. For indigenous and 
-endangered languages, relevancy is not enough. A model that confidently 
-fabricates Taíno vocabulary causes more harm than one that admits 
-uncertainty and redirects to academic sources. This project explores 
-what responsible AI evaluation looks like in that context.
+Generic AI evaluation metrics measure relevancy. For low-resource and 
+reconstructed languages, relevancy is not enough. A model that 
+confidently fabricates vocabulary or cultural details causes more harm 
+than one that admits uncertainty and redirects to authoritative sources. 
+This project explores what responsible AI evaluation looks like in that 
+context.
+
+Taíno — the language of the indigenous people of the Caribbean, currently 
+the subject of active scholarly and community reconstruction efforts — 
+is used as the motivating example throughout this project. It illustrates 
+the problem space clearly: no living speaker community, thin and contested 
+scholarly record, and essentially zero presence in the training data of 
+current AI models. The evaluation tooling being built here is designed 
+to be applicable across low-resource and reconstructed language contexts 
+broadly, not Taíno specifically.
 
 ## Key finding so far
 
@@ -29,15 +40,15 @@ Default configuration misses this failure mode entirely. HallucinationMetric
 has no equivalent parameter and cannot catch unsupported additions by design. 
 This distinction matters significantly for low-resource language evaluation 
 where fabricated cultural or linguistic details can propagate misinformation 
-in communities with limited ability to correct the record at scale.
+with no living speaker community to identify and correct errors at scale.
 
 ## The deeper problem
 
 FaithfulnessMetric requires reliable sourced context to evaluate against. 
-For Taíno specifically, trustworthy academically sourced context is scarce 
-and contested. This reframes the core technical challenge from finding the 
-right metric to establishing what counts as ground truth context for a 
-language with limited documented sources.
+For reconstructed languages specifically, trustworthy academically sourced 
+context is scarce and contested. This reframes the core technical challenge 
+from finding the right metric to establishing what counts as ground truth 
+context for a language with limited or reconstructed sources.
 
 This is a collaboration problem. Linguists and community knowledge holders 
 determine what sources are authoritative. QA engineering determines how to 
@@ -52,15 +63,17 @@ performance across seven indigenous American languages (Quechua, Guarani,
 Aymara, Nahuatl, Quiche, Mapuche, Tupi-Guarani). Key findings: AI scores 
 only 2.4/10 on expression correctness and 2.3/10 on comprehension even 
 when responses appear superficially correct 54% of the time. Taíno is 
-absent from the study. That absence is the specific gap this project 
-addresses.
+absent from the study — illustrating both the gap in current research 
+and why a broadly applicable evaluation framework matters.
 
 ## Motivation
 
-Puerto Rican descent with personal interest in Taíno cultural recovery. 
-This project is built by a QA engineer, not a linguist. The contribution 
-is evaluation infrastructure — tooling that operates on top of whatever 
-authoritative linguistic sources exist.
+Built by a QA engineer of Puerto Rican descent with personal interest in 
+Taíno cultural history and indigenous language preservation broadly. This 
+is not a linguistics project — it is an evaluation infrastructure project 
+in early development. The goal is to build tooling that could eventually 
+support communities and scholars doing language documentation and 
+reconstruction work, developed in genuine collaboration with domain experts.
 
 ## Tech stack
 
@@ -71,5 +84,5 @@ authoritative linguistic sources exist.
 
 ## Status
 
-Active — early stage. Three days in. Findings documented in NOTES.md 
+Active — early stage. Four days in. Findings documented in NOTES.md 
 and RESEARCH.md.
