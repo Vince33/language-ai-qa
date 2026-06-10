@@ -23,9 +23,10 @@ Need to distinguish between:
 
 ### Why this matters for the portfolio:
 
-This is the seed of the thesis — evaluating AI for low-resource indigenous 
-language contexts requires frameworks that understand the difference between 
-relevancy and responsibility. That gap is the niche.
+This is the seed of the thesis — investigating how existing AI evaluation 
+tooling performs in low-resource and reconstructed language contexts requires 
+understanding the difference between relevancy and responsibility. That gap 
+is the niche.
 
 Potential artifacts: custom metric, README, FLAIR outreach, conference proposal.
 
@@ -121,10 +122,13 @@ miss this dimension entirely.
 
 ### Positioning note
 
-This project is being built by a QA engineer of Puerto Rican descent with 
-personal interest in Taíno cultural recovery — not a Taíno language expert. 
-The contribution is evaluation infrastructure, not linguistic authority. 
-That distinction is intentional and important.
+This project is a learning exercise and early-stage investigation by a QA 
+engineer of Puerto Rican descent with personal interest in Taíno cultural 
+history and indigenous language preservation broadly — not a Taíno language 
+expert or linguist. The work investigates how existing evaluation tooling 
+behaves in this domain, not building new tooling from scratch. Taíno is 
+the motivating example, not the defined scope. The findings are intended 
+to be applicable across low-resource and reconstructed language contexts.
 
 ### FaithfulnessMetric investigation — complete picture
 

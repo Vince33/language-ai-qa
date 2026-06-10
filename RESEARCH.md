@@ -68,8 +68,9 @@ The needed distinction is between three response types:
 - Uncertain and honest — acceptable, often preferable
 - Confident and wrong — dangerous, especially for low-resource language content
 
-Current generic metrics do not make this distinction. Building evaluation 
-tooling that does is the core contribution this project is working toward.
+Current generic metrics do not make this distinction. Understanding whether 
+existing evaluation tooling can be configured to make this distinction — and 
+where it cannot — is the core question this project is investigating.
 
 ---
 
@@ -108,15 +109,16 @@ tooling that does is the core contribution this project is working toward.
 - The study proposes a three-dimensional evaluation framework: linguistic 
   (expression), executive (comprehension), and behavioral (cultural 
   reflection). This maps closely to the evaluation dimensions this project 
-  is developing.
+  is investigating.
 
 ### Relevance to this project
 
 The IDB report confirms at institutional scale what this project identified 
 experimentally on day one — that generic metrics are insufficient for 
-indigenous language AI evaluation, and that the gap between surface 
-correctness and actual correctness is the core problem. The absence of 
-Taíno from the study is the specific gap this project can address.
+low-resource language AI evaluation, and that the gap between surface 
+correctness and actual correctness is the core problem. Taíno's absence 
+from the study illustrates the broader gap in current research coverage 
+that a more general evaluation framework could eventually address.
 
 ---
 
@@ -183,7 +185,9 @@ dimension no current generic evaluation framework addresses.
   data sovereignty alongside technical performance.
 
 **Gap:** No published evaluation framework specifically addresses Taíno 
-or Arawakan languages. This is the documented opening for this project.
+or Arawakan languages. More broadly, systematic investigation of how 
+existing evaluation tooling performs in reconstructed language contexts 
+is underrepresented in the literature.
 
 ---
 
