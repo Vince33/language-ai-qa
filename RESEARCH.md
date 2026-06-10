@@ -122,6 +122,74 @@ that a more general evaluation framework could eventually address.
 
 ---
 
+## Vasselli et al. (2026): Measuring Linguistic Competence of LLMs on Indigenous Languages of the Americas
+
+**Source:** ACL Anthology — Proceedings of EACL 2026 (Short Papers), pages 287–296
+
+**Authors:** Justin Vasselli, Arturo Martínez Peguero, Frederikus Hudi, Haruki Sakajo, Taro Watanabe — Nara Institute of Science and Technology
+
+**Status: Primary source — directly relevant**
+
+### Key findings
+
+- Performance is strongly concentrated in languages with Wikipedia presence.
+  Languages without Wikipedia editions perform near chance on open language
+  identification tasks. This directly confirms the 91% correlation finding
+  from the IDB report and predicts near-zero LLM performance for Taíno,
+  which has no Wikipedia presence.
+
+- Two Arawakan languages were included — Asháninka (74,500 speakers, no
+  Wikipedia) and Wayuu (420,000 speakers, Wikipedia present). Neither
+  performed well in open identification. Taíno is Arawakan with no speakers
+  and no Wikipedia — the performance prediction is unambiguous.
+
+- Even the strongest models (GPT-4.1, Gemini 2.0) show meaningful performance
+  only on a small subset of languages. Many model-language combinations perform
+  near random chance, particularly for languages without digital presence.
+
+- Few-shot prompting helps substantially for some languages — Bribri improved
+  from 8.8% to 72% accuracy with just one example. This suggests that even
+  minimal grounding can improve performance, which has implications for RAG
+  approaches in low-resource contexts.
+
+### The Arawakan connection
+
+Taíno is an Arawakan language. The paper includes two Arawakan languages
+and both underperform relative to languages with greater digital presence.
+This is the closest published evidence of how LLMs handle the language
+family that Taíno belongs to.
+
+### Ethical considerations — academic validation of data sovereignty framing
+
+The paper's ethical considerations section states directly:
+
+"Indigenous languages are not public resources in the same way as 
+high-resource languages... care must be taken to respect community 
+ownership and avoid exploiting linguistic data without engagement or 
+consent from language communities."
+
+This is published researchers at a major NLP conference articulating
+the same principle documented in this project's data sovereignty section.
+It validates the framing that responsible evaluation requires community
+engagement, not just technical rigor.
+
+### The AmericasNLP dataset
+
+The paper used data from the AmericasNLP 2025 Shared Task released under
+Creative Commons Attribution-ShareAlike 4.0. This dataset covers 13
+indigenous languages and is legally usable for research. Worth exploring
+as a potential source for RAG placeholder content — it contains real
+indigenous language data with an open license.
+
+### Relevance to this project
+
+This paper provides academic confirmation at the NLP research level of
+what this project identified experimentally — that LLM performance in
+indigenous language contexts is severely limited and correlates directly
+with digital presence. The absence of Taíno from the study is consistent
+with its near-zero digital footprint. The ethical framing in the paper
+aligns with the data sovereignty concerns documented in this project.
+
 ## Indigenous Data Sovereignty and the Digitalization Risk
 
 **Status: Emerging concern — not yet resolved**
