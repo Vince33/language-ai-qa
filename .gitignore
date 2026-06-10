@@ -1,3 +1,5 @@
 .env
-.deepeval/ 
-__pycache__/ 
+.deepeval
+__pycache__
+.venv
+chroma_db
