@@ -161,3 +161,17 @@ with no configuration path to catch unsupported additions.
 and `threshold=0.7` is the correct tool for this domain. Default 
 configuration is insufficient. This is a concrete, actionable finding — 
 not just a theoretical gap.
+
+## Observation — Day 4 (June 10, 2026)
+
+### HallucinationMetric self-documenting limitation
+
+In a subsequent run the HallucinationMetric judge explicitly stated:
+
+"such elaborations without contradicting evidence are not penalized 
+as hallucinations"
+
+The metric is literally articulating why it cannot catch what this domain 
+needs it to catch. This is the clearest possible confirmation that 
+HallucinationMetric is the wrong tool for unsupported addition detection 
+in low-resource language contexts.
