@@ -5,27 +5,27 @@ and reconstructed language technology.
 
 ## What this is
 
-An evaluation framework for AI systems that attempt to handle content 
-in low-resource and reconstructed languages — languages with limited 
-digital data, no living speaker community, or both. The focus is on 
-building tooling that helps assess whether AI models are behaving 
-responsibly — not just relevantly — when working in these contexts.
+An investigation into how existing AI evaluation tooling performs when 
+applied to low-resource and reconstructed language contexts — languages 
+with limited digital data, no living speaker community, or both. The focus 
+is on understanding whether standard metrics behave appropriately in these 
+domains, what configuration is required to make them useful, and where the 
+gaps are that current tooling cannot address.
 
 Generic AI evaluation metrics measure relevancy. For low-resource and 
-reconstructed languages, relevancy is not enough. A model that 
-confidently fabricates vocabulary or cultural details causes more harm 
-than one that admits uncertainty and redirects to authoritative sources. 
-This project explores what responsible AI evaluation looks like in that 
-context.
+reconstructed languages, relevancy is not enough. A model that confidently 
+fabricates vocabulary or cultural details causes more harm than one that 
+admits uncertainty and redirects to authoritative sources. This project 
+explores what responsible AI evaluation looks like in that context.
 
 Taíno — the language of the indigenous people of the Caribbean, currently 
 the subject of active scholarly and community reconstruction efforts — 
 is used as the motivating example throughout this project. It illustrates 
 the problem space clearly: no living speaker community, thin and contested 
 scholarly record, and essentially zero presence in the training data of 
-current AI models. The evaluation tooling being built here is designed 
-to be applicable across low-resource and reconstructed language contexts 
-broadly, not Taíno specifically.
+current AI models. The findings here are intended to be applicable across 
+low-resource and reconstructed language contexts broadly, not Taíno 
+specifically.
 
 ## Key finding so far
 
