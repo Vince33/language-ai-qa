@@ -78,7 +78,7 @@ if __name__ == "__main__":
     query = "Who was the father of Isaac?"
     print(f"\nQuery: {query}")
 
-    chunks = retrieve(collection, query)
+    chunks = retrieve(collection, query, n_results=1)
     print(f"\nRetrieved context:")
     for chunk in chunks:
         print(f"  - {chunk}")

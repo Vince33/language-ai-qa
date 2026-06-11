@@ -25,10 +25,9 @@ Need to distinguish between:
 
 This is the seed of the thesis — investigating how existing AI evaluation 
 tooling performs in low-resource and reconstructed language contexts requires 
-understanding the difference between relevancy and responsibility. That gap 
-is the niche.
+understanding the difference between relevancy and responsibility.
 
-Potential artifacts: custom metric, README, FLAIR outreach, conference proposal.
+Potential artifacts: README, FLAIR outreach, conference proposal.
 
 ---
 
@@ -126,9 +125,9 @@ This project is a learning exercise and early-stage investigation by a QA
 engineer of Puerto Rican descent with personal interest in Taíno cultural 
 history and indigenous language preservation broadly — not a Taíno language 
 expert or linguist. The work investigates how existing evaluation tooling 
-behaves in this domain, not building new tooling from scratch. Taíno is 
-the motivating example, not the defined scope. The findings are intended 
-to be applicable across low-resource and reconstructed language contexts.
+behaves in this domain. Taíno is the motivating example, not the defined 
+scope. The findings are intended to be applicable across low-resource and
+reconstructed language contexts.
 
 ### FaithfulnessMetric investigation — complete picture
 
