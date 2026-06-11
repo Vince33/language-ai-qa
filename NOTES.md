@@ -235,3 +235,39 @@ evaluation infrastructure for indigenous language content requires:
 The placeholder approach is honest acknowledgment of this reality. 
 Authentic content would require community partnership — something 
 outside the current scope of this project.
+
+### RAG evaluation — first results
+
+Ran DeepEval evaluation against the RAG pipeline using three queries.
+Results reveal a clear split between generation and retrieval quality:
+
+**Faithfulness: 1.0 on all three queries**
+The model stayed completely grounded in retrieved context for every query.
+No unsupported additions detected. Generation layer is working correctly.
+
+**Contextual Relevancy: 0.20-0.33 on all three queries**
+Retrieval is returning chunks that contain the right answer but surrounded
+by noise. For "Who was the father of Isaac?" only 1 of 5 retrieved
+statements was actually relevant. The rest were adjacent narrative content
+that happened to be nearby in the corpus.
+
+This is expected behavior with Bible text — it is structured as connected
+narrative so sentences about Abraham naturally appear near sentences about
+Jacob, Judah, and Egypt. The embedding model retrieves topically adjacent
+content rather than precisely relevant content.
+
+### What this demonstrates
+
+This is a real RAG finding, not a failure of the experiment. The evaluation
+metrics surfaced a genuine retrieval quality problem:
+
+- Generation layer: working correctly, faithful responses
+- Retrieval layer: noisy, low signal-to-noise ratio in returned chunks
+
+ContextualPrecision and ContextualRecall would help diagnose this further
+but require expected_output to be defined — which brings the ground truth
+context problem back into focus. Even for a well-resourced corpus like the
+Bible, defining expected outputs for evaluation requires deliberate effort.
+
+For low-resource or reconstructed language content the problem is
+significantly harder.
