@@ -175,3 +175,62 @@ The metric is literally articulating why it cannot catch what this domain
 needs it to catch. This is the clearest possible confirmation that 
 HallucinationMetric is the wrong tool for unsupported addition detection 
 in low-resource language contexts.
+
+### RAG pipeline — working end to end
+
+Built a local RAG pipeline using Chroma and sentence-transformers. Pipeline
+consists of:
+- Embedding: all-MiniLM-L6-v2 (sentence-transformers)
+- Vector store: Chroma (local persistence, excluded from git)
+- Generation: Claude Haiku via Anthropic API
+- Corpus: Aguaruna Bible parallel corpus (CC0 licensed, OPUS bible-uedin)
+
+Successfully retrieved relevant context and generated a grounded response
+on a test query. Infrastructure is working.
+
+### Corpus sourcing — what was learned
+
+Spent significant time searching for openly licensed indigenous language
+content suitable for a public repo. Key findings:
+
+- Most indigenous language content has unclear or restrictive licensing
+- UCTP materials are copyrighted — use requires explicit permission
+- Community-generated linguistic content carries data sovereignty concerns
+  beyond just copyright
+- Bible parallel corpora (OPUS bible-uedin, CC0) are the cleanest freely
+  available source with real indigenous language data
+
+Chose Aguaruna (agr) — a Chicham language of Peru — as placeholder because:
+- CC0 licensed, no restrictions
+- Featured in Vasselli et al. 2026 as a language where LLMs perform poorly
+- Parallel English text enables meaningful retrieval testing
+
+### Embedding limitation for indigenous languages
+
+Standard embedding models (all-MiniLM-L6-v2) are trained primarily on
+English and high-resource languages. Embedding Aguaruna text directly
+would produce unreliable vectors — the model has no meaningful
+representation of the language.
+
+Current approach: embed and retrieve the English side of the parallel
+corpus. This tests the RAG infrastructure correctly but is not authentic
+to the intended use case.
+
+Production use of this pipeline for indigenous language evaluation would
+require embedding models trained on or fine-tuned for indigenous languages.
+This is a documented infrastructure gap — not just a configuration issue
+but a research problem that does not yet have a clean solution for most
+indigenous languages.
+
+### The ground truth context problem — now more concrete
+
+What began as a theoretical concern is now a practical one. Building
+evaluation infrastructure for indigenous language content requires:
+
+1. Authoritative linguistic sources — scarce, often community-controlled
+2. Appropriate licensing — frequently unclear or restrictive  
+3. Embedding models that understand the language — largely unavailable
+4. Community partnership — not optional, methodologically required
+
+The placeholder approach is honest acknowledgment of this reality.
+Authentic content requires collaboration, not just research effort.
