@@ -216,8 +216,8 @@ Current approach: embed and retrieve the English side of the parallel
 corpus. This tests the RAG infrastructure correctly but is not authentic
 to the intended use case.
 
-Production use of this pipeline for indigenous language evaluation would
-require embedding models trained on or fine-tuned for indigenous languages.
+A real evaluation pipeline for indigenous language content would require 
+embedding models trained on or fine-tuned for indigenous languages.
 This is a documented infrastructure gap — not just a configuration issue
 but a research problem that does not yet have a clean solution for most
 indigenous languages.
@@ -232,5 +232,6 @@ evaluation infrastructure for indigenous language content requires:
 3. Embedding models that understand the language — largely unavailable
 4. Community partnership — not optional, methodologically required
 
-The placeholder approach is honest acknowledgment of this reality.
-Authentic content requires collaboration, not just research effort.
+The placeholder approach is honest acknowledgment of this reality. 
+Authentic content would require community partnership — something 
+outside the current scope of this project.
