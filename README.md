@@ -56,6 +56,27 @@ structure those sources for evaluation and measure whether AI outputs stay
 faithful to them. Organizations like FLAIR and UCTP are necessary partners 
 in this work, not just audiences for it.
 
+## RAG pipeline
+
+A local RAG pipeline is included as infrastructure demonstration. It uses 
+the English side of the Aguaruna-English parallel Bible corpus (CC0 licensed, 
+OPUS bible-uedin) as placeholder content.
+
+Aguaruna is a Chicham language of Peru featured in recent NLP research as 
+a language where LLMs perform poorly. It is used here as a stand-in for 
+the kind of low-resource content this evaluation framework is designed for.
+
+Known limitation: standard embedding models (all-MiniLM-L6-v2) perform 
+poorly on indigenous language text directly — they were trained primarily 
+on English and high-resource languages. The English side of the parallel 
+corpus is used for embedding and retrieval. A real evaluation pipeline 
+for indigenous language content would require embedding models trained on
+or adapted for the target language — a research gap that does not yet have
+a clean solution for most indigenous languages.
+
+Authentic content for Taíno or other reconstructed languages requires 
+explicit community partnership and cannot be sourced from open corpora.
+
 ## Context
 
 The IDB Lab / Microsoft AI for Good Lab published a study evaluating AI 
@@ -70,16 +91,18 @@ and why a broadly applicable evaluation framework matters.
 
 Built by a QA engineer of Puerto Rican descent with personal interest in 
 Taíno cultural history and indigenous language preservation broadly. This 
-is not a linguistics project — it is an evaluation infrastructure project 
-in early development. The goal is to build tooling that could eventually 
-support communities and scholars doing language documentation and 
-reconstruction work, developed in genuine collaboration with domain experts.
+is not a linguistics project — it is an early-stage investigation into 
+how existing AI evaluation tooling performs in low-resource and reconstructed 
+language contexts. Taíno is the motivating example, not the defined scope.
 
 ## Tech stack
 
 - Python 3.13
-- DeepEval (AnswerRelevancyMetric, HallucinationMetric, FaithfulnessMetric)
+- DeepEval (AnswerRelevancyMetric, HallucinationMetric, FaithfulnessMetric, 
+  ContextualRelevancyMetric)
 - Anthropic Claude API
+- Chroma (local vector database)
+- sentence-transformers (all-MiniLM-L6-v2)
 - pytest
 
 ## Status
