@@ -270,3 +270,41 @@ Bible, defining expected outputs for evaluation requires deliberate effort.
 
 For low-resource or reconstructed language content the problem is
 significantly harder.
+
+## Observation — Day 5 (June 11, 2026)
+
+### Retrieval tuning — what was learned
+
+Investigated whether reducing n_results or changing chunking strategy
+would improve ContextualRelevancy scores from the initial 0.20-0.33 range.
+
+**n_results experiment:**
+Initial attempt to change n_results was applied only to the __main__ block
+in rag_pipeline.py, not to the default parameter used by test_rag_eval.py.
+The experiment was not actually run. Corrected and ran properly — results
+were mixed. n_results=1 improved one query, hurt another, and introduced
+a new faithfulness failure on test_case_2 where the model inferred a
+conclusion the single retrieved chunk only implied. Not an improvement overall.
+
+**Period-based chunking experiment:**
+Split corpus lines on periods before embedding so each chunk is a single
+sentence rather than a full line. Average ContextualRelevancy improved
+marginally from 0.26 to 0.36 but still failed across all three queries.
+The core problem persisted — topical clustering means semantically similar
+chunks retrieve adjacent content regardless of chunk size.
+
+### Conclusion — corpus characteristics matter as much as chunking strategy
+
+The retrieval quality problem cannot be tuned away through n_results or
+chunking adjustments. It is a property of the Bible corpus — narrative
+structure groups related facts topically, so embedding-based retrieval
+pulls adjacent content even when it is not directly relevant.
+
+A corpus of isolated factual statements — a dictionary, a glossary, a
+structured knowledge base — would behave very differently. This is directly
+relevant to the project's core concern. For indigenous language evaluation,
+authoritative content would likely come from dictionaries, wordlists, and
+structured linguistic documentation — formats better suited to RAG retrieval
+than narrative text. The Bible corpus is a useful infrastructure placeholder
+but its retrieval characteristics are not representative of the intended
+use case.

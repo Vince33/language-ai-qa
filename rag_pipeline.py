@@ -23,7 +23,14 @@ chroma_client = chromadb.PersistentClient(path="./chroma_db")
 def load_corpus(path, max_sentences=500):
     with open(path, "r") as f:
         lines = [line.strip() for line in f if line.strip()]
-    return lines[:max_sentences]
+    # Split each line on periods to get individual sentences
+    # This reduces noise in retrieval — each chunk is a single fact
+    sentences = []
+    for line in lines:
+        chunks = [s.strip() for s in line.split(".") if s.strip()]
+        sentences.extend(chunks)
+    
+    return sentences[:max_sentences]
 
 def build_vector_store(sentences):
     collection = chroma_client.get_or_create_collection("aguaruna_bible")
@@ -78,7 +85,7 @@ if __name__ == "__main__":
     query = "Who was the father of Isaac?"
     print(f"\nQuery: {query}")
 
-    chunks = retrieve(collection, query, n_results=1)
+    chunks = retrieve(collection, query, n_results=3)
     print(f"\nRetrieved context:")
     for chunk in chunks:
         print(f"  - {chunk}")

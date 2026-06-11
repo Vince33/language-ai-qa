@@ -259,6 +259,74 @@ is underrepresented in the literature.
 
 ---
 
+## RAG Corpus Selection and Retrieval Quality
+
+**Status: Experimental finding — directly relevant**
+
+### The retrieval quality problem is partly a corpus selection problem
+
+Building a RAG pipeline for indigenous language evaluation requires not 
+just the right metrics and chunking strategy — it requires corpus content 
+whose structure is compatible with embedding-based retrieval.
+
+Experimentation with the Aguaruna Bible parallel corpus (OPUS bible-uedin, 
+CC0) revealed two persistent retrieval quality problems that could not be 
+resolved through tuning:
+
+**Topical clustering** — Bible text groups related facts together narratively. 
+Sentences about Abraham, Isaac, and Jacob embed near each other in vector 
+space because they share vocabulary, structure, and topic. A query about 
+Isaac's father retrieves sentences about Jacob's father and Judah's brothers 
+alongside the correct answer — not because retrieval is broken, but because 
+semantic similarity and answer relevance are not the same thing in narrative 
+text.
+
+**Pronoun dependency** — Bible sentences use pronouns that depend on 
+surrounding context. "to be baptized by him" loses its referent when the 
+chunk is separated from its surrounding sentences. Period-based chunking 
+made this worse by isolating pronouns from their antecedents.
+
+These are properties of the corpus, not configuration problems. No 
+combination of n_results tuning or chunking strategy resolved them.
+
+### Why this matters for indigenous language RAG
+
+The Bible corpus is widely used in NLP research because it is multilingual 
+and openly licensed. It is well suited for machine translation and language 
+identification tasks. It is poorly suited for RAG evaluation because of its 
+narrative structure.
+
+Authoritative indigenous language content — if it existed and were 
+accessible — would likely come from dictionaries, wordlists, grammatical 
+tables, and structured linguistic documentation. These formats have 
+fundamentally different retrieval characteristics:
+
+- Dictionary entries are isolated facts with no pronoun dependencies
+- Wordlists have one-to-one mappings between terms and definitions
+- Structured linguistic documentation labels its content explicitly
+
+A RAG system built on a Taíno dictionary would be expected to perform 
+significantly better on retrieval quality metrics than one built on 
+narrative text — assuming the dictionary content could be sourced 
+appropriately.
+
+### Implication for evaluation design
+
+Corpus selection is a methodological choice that significantly affects 
+RAG evaluation results. This is worth stating explicitly: low retrieval 
+quality scores do not necessarily indicate a broken pipeline — they may 
+indicate a mismatch between corpus structure and retrieval mechanism.
+
+The Bible corpus placeholder usefully demonstrates this limitation. It 
+surfaces a real barrier that would need to be addressed in any production 
+RAG system for indigenous language evaluation — not through better 
+configuration, but through better source material.
+
+This adds another layer to the ground truth context problem already 
+documented in this project. The problem is not just finding authoritative 
+sources — it is finding authoritative sources whose structure is compatible 
+with the evaluation infrastructure.
+
 ## Open Questions
 
 - What existing work exists on faithfulness metrics for low-resource languages?
