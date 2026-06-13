@@ -308,3 +308,54 @@ structured linguistic documentation — formats better suited to RAG retrieval
 than narrative text. The Bible corpus is a useful infrastructure placeholder
 but its retrieval characteristics are not representative of the intended
 use case.
+
+## Observation — Day 6 (June 12, 2026)
+
+### ContextualPrecision and ContextualRecall — first results
+
+Added expected_output to the RAG evaluation test cases and ran the full 
+suite including ContextualPrecision and ContextualRecall. Results complete 
+the picture of retrieval quality across all four metrics:
+
+**Contextual Recall: 1.00 on all three queries**
+The retriever successfully surfaced everything needed to answer each question.
+The information existed in the corpus and was retrieved.
+
+**Contextual Precision: inconsistent — 1.00, 0.50, 1.00**
+Two queries had the relevant chunk ranked first. One query (Jesus birthplace) 
+had the relevant chunk ranked second behind an irrelevant chunk. The ranking 
+is not consistently reliable.
+
+**Contextual Relevancy: consistently poor 0.33-0.40**
+Retrieval returns too much noise alongside the relevant chunk regardless 
+of ranking.
+
+**Faithfulness: 1.00 on all three queries**
+Generation layer continues to perform correctly.
+
+### The complete retrieval picture
+
+The four metrics together tell a coherent story:
+
+- The right information is being retrieved (Recall: 1.00)
+- But it is buried in noise (Relevancy: 0.33-0.40)
+- And not consistently ranked at the top (Precision: inconsistent)
+- The model stays faithful to whatever it retrieves (Faithfulness: 1.00)
+
+### Corpus sparsity compounds the noise problem
+
+A key observation — with only 500 sentences in the vector store, the 
+retriever has limited options when filling n_results=3 chunks. Even when 
+one chunk is directly relevant, the retriever must fill the remaining slots 
+with adjacent content because genuinely relevant alternatives are scarce.
+
+This compounds the topical clustering problem already documented. It is 
+not just that narrative structure causes noise — it is that sparse domain 
+coverage forces the retriever to return noise to fill the requested chunk 
+count. A larger, more diverse corpus would give the retriever more genuinely 
+relevant options.
+
+For indigenous language evaluation this matters significantly. Even with 
+well-structured content like a dictionary, if the source is small the 
+retriever faces the same sparsity problem. Corpus size is a constraint 
+that compounds corpus structure problems.

@@ -3,7 +3,7 @@ load_dotenv()
 
 from deepeval import evaluate
 from deepeval.test_case import LLMTestCase
-from deepeval.metrics import FaithfulnessMetric, ContextualRelevancyMetric
+from deepeval.metrics import FaithfulnessMetric, ContextualRelevancyMetric, ContextualPrecisionMetric, ContextualRecallMetric
 from deepeval.models import AnthropicModel
 
 from rag_pipeline import load_corpus, build_vector_store, retrieve, generate
@@ -25,6 +25,19 @@ contextual_relevancy_metric = ContextualRelevancyMetric(
     threshold=0.7,
     model=model
 )
+# ContextualPrecisionMetric: are the most relevant chunks ranked at the top?
+# Requires expected_output as reference point.
+contextual_precision_metric = ContextualPrecisionMetric(
+    threshold=0.7,
+    model=model
+)
+
+# ContextualRecallMetric: did retrieval surface everything needed for a complete answer?
+# Requires expected_output as reference point.
+contextual_recall_metric = ContextualRecallMetric(
+    threshold=0.7,
+    model=model
+)
 
 # --- Build RAG pipeline ---
 sentences = load_corpus("data/bible-uedin.agr-en.en")
@@ -35,21 +48,22 @@ collection = build_vector_store(sentences)
 # Used to evaluate whether the RAG pipeline retrieves relevant context
 # and generates faithful responses
 queries = [
-    "Who was the father of Isaac?",
-    "Where was Jesus born?",
-    "Who baptized Jesus?",
+    ("Who was the father of Isaac?", "Abraham was the father of Isaac."),
+    ("Where was Jesus born?", "Jesus was born in Bethlehem of Judea."),
+    ("Who baptized Jesus?", "John baptized Jesus at the Jordan river."),
 ]
 
 test_cases = []
-for query in queries:
+for query, expected in queries:
     chunks = retrieve(collection, query)
     response = generate(query, chunks)
     
     test_cases.append(LLMTestCase(
         input=query,
         actual_output=response,
+        expected_output=expected,
         retrieval_context=chunks
     ))
 
 # --- Evaluate ---
-evaluate(test_cases, [faithfulness_metric, contextual_relevancy_metric])
+evaluate(test_cases, [faithfulness_metric, contextual_relevancy_metric, contextual_precision_metric, contextual_recall_metric])
